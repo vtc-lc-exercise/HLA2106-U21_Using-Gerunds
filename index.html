@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HLA2106: Using Gerunds</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            animation: floatBackground 15s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes floatBackground {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-20px) scale(1.05);
+            }
+        }
+
+        /* Floating shapes */
+        .floating-shape {
+            position: fixed;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 0;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .shape1 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        .shape3 {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 30%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-50px) rotate(180deg);
+            }
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            animation: fadeIn 0.6s ease-in;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Title Page */
+        .title-page {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .title-page h1 {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .title-page h2 {
+            font-size: 1.6em;
+            color: #764ba2;
+            margin-bottom: 20px;
+        }
+
+        .title-page h3 {
+            font-size: 2.5em;
+            color: #667eea;
+            margin-bottom: 40px;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .title-page .emoji {
+            font-size: 4em;
+            margin: 20px 0;
+            animation: rotate 2s ease-in-out infinite;
+        }
+
+        @keyframes rotate {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(15deg); }
+        }
+
+        /* Section Selection Cards */
+        .section-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .section-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            text-align: center;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .section-card .emoji {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .section-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .section-card p {
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+
+        /* Two-column layout for Section 2 */
+        .section2-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .questions-column {
+            min-width: 0;
+        }
+
+        .dashboard-column {
+            position: sticky;
+            top: 20px;
+            align-self: start;
+        }
+
+        /* Dashboard for Section 2 */
+        .dashboard {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .dashboard-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .dashboard-path {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .dashboard-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-item.filled {
+            background: rgba(255, 255, 255, 0.95);
+            color: #667eea;
+            border: 2px solid white;
+            font-weight: bold;
+            animation: fillIn 0.5s ease-out;
+        }
+
+        @keyframes fillIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .dashboard-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .dashboard-value {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .dashboard-arrow {
+            text-align: center;
+            font-size: 2em;
+            opacity: 0.5;
+            margin: 5px 0;
+        }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        /* Questions */
+        .question-container {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .question-text {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+
+        .speaker {
+            font-weight: bold;
+            color: #667eea;
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+
+        .options {
+            margin: 20px 0;
+        }
+
+        .option {
+            display: block;
+            padding: 15px 20px;
+            margin: 10px 0;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.05em;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateX(5px);
+        }
+
+        .option input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .feedback {
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+            display: block;
+        }
+
+        .progress {
+            background: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.5s ease;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.3em;
+            margin: 20px 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        /* Section 2 Scaffolding */
+        .scaffolding-step {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .scaffolding-step.completed {
+            border-color: #28a745;
+            background: #f0f9f4;
+        }
+
+        .step-label {
+            font-weight: bold;
+            color: #764ba2;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .hint {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-style: italic;
+        }
+
+        h2 {
+            color: #667eea;
+            margin: 30px 0 20px 0;
+            font-size: 2em;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin: 20px 0 15px 0;
+        }
+
+        .emoji-large {
+            font-size: 2em;
+            margin: 0 5px;
+        }
+
+        .context-box {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #17a2b8;
+        }
+
+        .final-score {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .final-score h2 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .final-score .emoji {
+            font-size: 5em;
+            margin: 20px 0;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .title-page h1 {
+                font-size: 1.5em;
+            }
+            
+            .title-page h2 {
+                font-size: 1.3em;
+            }
+
+            .title-page h3 {
+                font-size: 1.8em;
+            }
+            
+            .btn {
+                padding: 12px 30px;
+                font-size: 1em;
+            }
+
+            .section-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .section2-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-column {
+                position: static;
+                order: -1;
+            }
+            
+            .dashboard-path {
+                flex-direction: row;
+                overflow-x: auto;
+            }
+            
+            .dashboard-item {
+                min-width: 120px;
+            }
+            
+            .dashboard-arrow {
+                transform: rotate(-90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating shapes for engaging backdrop -->
+    <div class="floating-shape shape1"></div>
+    <div class="floating-shape shape2"></div>
+    <div class="floating-shape shape3"></div>
+
+    <div class="container">
+        <!-- Title Page -->
+        <div id="titlePage" class="page active title-page">
+            <div class="emoji">📚✨</div>
+            <h1>HLA2106: Workplace Writing II</h1>
+            <h2>Unit 21: Using Gerunds</h2>
+            <h3>Challenge Yourselves!</h3>
+            <div class="emoji">🏨👥💪</div>
+            <p style="font-size: 1.2em; margin: 30px 0; color: #555;">
+                Welcome! Choose a section below to practise using gerunds in workplace contexts.
+            </p>
+            
+            <div class="section-cards">
+                <div class="section-card" onclick="startSection1()">
+                    <div class="emoji">📋</div>
+                    <h3>Section 1</h3>
+                    <p>Gerunds vs To-Infinitives</p>
+                    <p style="margin-top: 10px; font-size: 0.9em;">11 Questions</p>
+                </div>
+                
+                <div class="section-card" onclick="startSection2()">
+                    <div class="emoji">🎯</div>
+                    <h3>Section 2</h3>
+                    <p>Subject-Verb Agreement</p>
+                    <p style="margin-top: 10px; font-size: 0.9em;">10 Questions</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; color: #777;">
+                💡 Tip: Complete Section 1 first if you're new to this topic!
+            </p>
+        </div>
+
+        <!-- Section 1: Gerunds vs To-Infinitives -->
+        <div id="section1" class="page">
+            <h2>📋 Section 1: Gerunds vs To-Infinitives</h2>
+            
+            <div class="context-box">
+                <strong>📌 Context:</strong> The organising team is having a meeting to discuss plans and improvements for future team building events. Choose the correct form for each blank.
+            </div>
+
+            <div class="progress">
+                <div id="progress1" class="progress-bar" style="width: 0%"></div>
+            </div>
+            <div class="score-display">Question <span id="currentQ1">1</span> of 11 | Score: <span id="score1">0</span>/11</div>
+
+            <div id="questions1"></div>
+
+            <div class="back-home">
+                <button class="btn btn-secondary" onclick="goHome()">🏠 Back to Home</button>
+                <button class="btn" onclick="goToSection2()" style="display: none;" id="nextBtn1">Continue to Section 2 ➡️</button>
+            </div>
+        </div>
+
+        <!-- Section 2: Subject-Verb Agreement -->
+        <div id="section2" class="page">
+            <h2>🎯 Section 2: Subject-Verb Agreement with Gerunds</h2>
+            
+            <div class="context-box">
+                <strong>📌 Context:</strong> The team is writing a summary report. Follow the steps to choose the correct verb form.
+            </div>
+
+            <div class="progress">
+                <div id="progress2" class="progress-bar" style="width: 0%"></div>
+            </div>
+            <div class="score-display">Question <span id="currentQ2">1</span> of 10 | Score: <span id="score2">0</span>/10</div>
+
+            <div class="section2-layout">
+                <!-- Left column: Questions -->
+                <div class="questions-column" id="questions2"></div>
+                
+                <!-- Right column: Dashboard -->
+                <div class="dashboard-column">
+                    <div class="dashboard" id="dashboard">
+                        <div class="dashboard-title">📊 Your Answer Path</div>
+                        <div class="dashboard-path">
+                            <div class="dashboard-item" id="dash-gerunds">
+                                <div class="dashboard-label">Step 1: Gerunds</div>
+                                <div class="dashboard-value">?</div>
+                            </div>
+                            <div class="dashboard-arrow">↓</div>
+                            <div class="dashboard-item" id="dash-action">
+                                <div class="dashboard-label">Step 2: Action Type</div>
+                                <div class="dashboard-value">?</div>
+                            </div>
+                            <div class="dashboard-arrow">↓</div>
+                            <div class="dashboard-item" id="dash-verb">
+                                <div class="dashboard-label">Step 3: Verb Form</div>
+                                <div class="dashboard-value">?</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="back-home">
+                <button class="btn btn-secondary" onclick="goHome()">🏠 Back to Home</button>
+                <button class="btn" onclick="showFinalScore()" style="display: none;" id="finishBtn">See Final Results 🎉</button>
+            </div>
+        </div>
+
+        <!-- Final Score Page -->
+        <div id="finalPage" class="page">
+            <div class="final-score">
+                <div class="emoji">🎉</div>
+                <h2>Congratulations!</h2>
+                <p style="font-size: 1.5em; margin: 20px 0;">You've completed the exercise!</p>
+                <div style="font-size: 2em; margin: 30px 0;">
+                    <strong>Your Score: <span id="sectionScore">0</span></strong>
+                </div>
+                <div class="emoji" id="finalEmoji">⭐</div>
+                <p id="finalMessage" style="font-size: 1.2em; margin: 20px 0;"></p>
+            </div>
+            <button class="btn" onclick="goHome()">🏠 Back to Home</button>
+            <button class="btn btn-secondary" onclick="tryAgain()">Try Again 🔄</button>
+        </div>
+    </div>
+
+    <script>
+        // Section 1 Questions Data
+        const section1Questions = [
+            {
+                speaker: "Emma (Operations Manager)",
+                text: "Thank you for all the feedback. We want _____ a better event next time.",
+                verb: "organise",
+                options: ["organise", "to organise", "organising"],
+                correct: "to organise",
+                explanation: {
+                    correct: "✅ Correct! The verb 'want' is followed by to-infinitive (to + verb).",
+                    incorrect: {
+                        "organise": "❌ Wrong. We need 'to-infinitive' after 'want', not the base form.",
+                        "organising": "❌ Wrong. 'Want' is followed by to-infinitive (to + verb), not a gerund (-ing)."
+                    }
+                }
+            },
+            {
+                speaker: "Emma (Operations Manager)",
+                text: "Most participants enjoyed _____ in the team activities.",
+                verb: "participate",
+                options: ["participate", "to participate", "participating"],
+                correct: "participating",
+                explanation: {
+                    correct: "✅ Correct! The verb 'enjoy' is always followed by a gerund (-ing form).",
+                    incorrect: {
+                        "participate": "❌ Wrong. 'Enjoy' must be followed by a gerund (-ing), not the base form.",
+                        "to participate": "❌ Wrong. 'Enjoy' takes a gerund (-ing), not to-infinitive."
+                    }
+                }
+            },
+            {
+                speaker: "Emma (Operations Manager)",
+                text: "However, we need _____ our planning process for future events.",
+                verb: "improve",
+                options: ["improve", "to improve", "improving"],
+                correct: "to improve",
+                explanation: {
+                    correct: "✅ Correct! The verb 'need' is followed by to-infinitive (to + verb).",
+                    incorrect: {
+                        "improve": "❌ Wrong. After 'need', we use to-infinitive (to + verb), not the base form.",
+                        "improving": "❌ Wrong. 'Need' takes to-infinitive (to + verb), not a gerund (-ing)."
+                    }
+                }
+            },
+            {
+                speaker: "Frank (Front Desk Supervisor)",
+                text: "The team suggested _____ more breaks between activities.",
+                verb: "include",
+                options: ["include", "to include", "including"],
+                correct: "including",
+                explanation: {
+                    correct: "✅ Correct! The verb 'suggest' is always followed by a gerund (-ing form).",
+                    incorrect: {
+                        "include": "❌ Wrong. 'Suggest' must be followed by a gerund (-ing), not the base form.",
+                        "to include": "❌ Wrong. 'Suggest' takes a gerund (-ing), not to-infinitive."
+                    }
+                }
+            },
+            {
+                speaker: "Frank (Front Desk Supervisor)",
+                text: "We also plan _____ the next event during a quieter period.",
+                verb: "hold",
+                options: ["hold", "to hold", "holding"],
+                correct: "to hold",
+                explanation: {
+                    correct: "✅ Correct! The verb 'plan' is followed by to-infinitive (to + verb).",
+                    incorrect: {
+                        "hold": "❌ Wrong. 'Plan' requires to-infinitive (to + verb), not the base form.",
+                        "holding": "❌ Wrong. 'Plan' takes to-infinitive (to + verb), not a gerund (-ing)."
+                    }
+                }
+            },
+            {
+                speaker: "Frank (Front Desk Supervisor)",
+                text: "Staff decided _____ the planning committee to share their ideas.",
+                verb: "join",
+                options: ["join", "to join", "joining"],
+                correct: "to join",
+                explanation: {
+                    correct: "✅ Correct! The verb 'decide' is followed by to-infinitive (to + verb).",
+                    incorrect: {
+                        "join": "❌ Wrong. 'Decide' needs to-infinitive (to + verb), not the base form.",
+                        "joining": "❌ Wrong. 'Decide' takes to-infinitive (to + verb), not a gerund (-ing)."
+                    }
+                }
+            },
+            {
+                speaker: "Grace (Training Coordinator)",
+                text: "Everyone finished _____ the feedback forms on time.",
+                verb: "complete",
+                options: ["complete", "to complete", "completing"],
+                correct: "completing",
+                explanation: {
+                    correct: "✅ Correct! The verb 'finish' is always followed by a gerund (-ing form).",
+                    incorrect: {
+                        "complete": "❌ Wrong. 'Finish' must be followed by a gerund (-ing), not the base form.",
+                        "to complete": "❌ Wrong. 'Finish' takes a gerund (-ing), not to-infinitive."
+                    }
+                }
+            },
+            {
+                speaker: "Grace (Training Coordinator)",
+                text: "We hope _____ even more suggestions next year.",
+                verb: "receive",
+                options: ["receive", "to receive", "receiving"],
+                correct: "to receive",
+                explanation: {
+                    correct: "✅ Correct! The verb 'hope' is followed by to-infinitive (to + verb).",
+                    incorrect: {
+                        "receive": "❌ Wrong. 'Hope' requires to-infinitive (to + verb), not the base form.",
+                        "receiving": "❌ Wrong. 'Hope' takes to-infinitive (to + verb), not a gerund (-ing)."
+                    }
+                }
+            },
+            {
+                speaker: "Grace (Training Coordinator)",
+                text: "The management agreed _____ additional resources for team building.",
+                verb: "provide",
+                options: ["provide", "to provide", "providing"],
+                correct: "to provide",
+                explanation: {
+                    correct: "✅ Correct! The verb 'agree' is followed by to-infinitive (to + verb).",
+                    incorrect: {
+                        "provide": "❌ Wrong. 'Agree' needs to-infinitive (to + verb), not the base form.",
+                        "providing": "❌ Wrong. 'Agree' takes to-infinitive (to + verb), not a gerund (-ing)."
+                    }
+                }
+            },
+            {
+                speaker: "Henry (Housekeeping Manager)",
+                text: "Staff members avoid _____ events during peak season, which makes sense.",
+                verb: "schedule",
+                options: ["schedule", "to schedule", "scheduling"],
+                correct: "scheduling",
+                explanation: {
+                    correct: "✅ Correct! The verb 'avoid' is always followed by a gerund (-ing form).",
+                    incorrect: {
+                        "schedule": "❌ Wrong. 'Avoid' must be followed by a gerund (-ing), not the base form.",
+                        "to schedule": "❌ Wrong. 'Avoid' takes a gerund (-ing), not to-infinitive."
+                    }
+                }
+            },
+            {
+                speaker: "Henry (Housekeeping Manager)",
+                text: "I recommend _____ our planning at least three months in advance.",
+                verb: "start",
+                options: ["start", "to start", "starting"],
+                correct: "starting",
+                explanation: {
+                    correct: "✅ Correct! The verb 'recommend' is always followed by a gerund (-ing form).",
+                    incorrect: {
+                        "start": "❌ Wrong. 'Recommend' must be followed by a gerund (-ing), not the base form.",
+                        "to start": "❌ Wrong. 'Recommend' takes a gerund (-ing), not to-infinitive."
+                    }
+                }
+            }
+        ];
+
+        // Section 2 Questions Data
+        const section2Questions = [
+            {
+                sentence: "Organising team building events _____ important for staff morale.",
+                gerunds: ["Organising"],
+                gerundsCount: 1,
+                actionType: "one",
+                options: ["is", "are"],
+                correct: "is",
+                explanation: "One gerund as subject takes a singular verb."
+            },
+            {
+                sentence: "Planning activities and booking venues _____ part of the coordinator's job.",
+                gerunds: ["Planning", "booking"],
+                gerundsCount: 2,
+                actionType: "two",
+                options: ["is", "are"],
+                correct: "are",
+                explanation: "Two gerunds as separate actions take a plural verb."
+            },
+            {
+                sentence: "Working together and sharing ideas _____ improve our events.",
+                gerunds: ["Working", "sharing"],
+                gerundsCount: 2,
+                actionType: "two",
+                options: ["helps", "help"],
+                correct: "help",
+                explanation: "Two gerunds as separate actions take a plural verb."
+            },
+            {
+                sentence: "Sending feedback forms early _____ helpful this time.",
+                gerunds: ["Sending"],
+                gerundsCount: 1,
+                actionType: "one",
+                options: ["was", "were"],
+                correct: "was",
+                explanation: "One gerund as subject takes a singular verb."
+            },
+            {
+                sentence: "Greeting participants and explaining the rules _____ about 15 minutes.",
+                gerunds: ["Greeting", "explaining"],
+                gerundsCount: 2,
+                actionType: "two",
+                options: ["takes", "take"],
+                correct: "take",
+                explanation: "These are two separate actions (greeting is different from explaining), so we use a plural verb."
+            },
+            {
+                sentence: "Promoting our events through different channels _____ participation rates.",
+                gerunds: ["Promoting"],
+                gerundsCount: 1,
+                actionType: "one",
+                options: ["increases", "increase"],
+                correct: "increases",
+                explanation: "One gerund as subject takes a singular verb."
+            },
+            {
+                sentence: "Allocating buffer time between activities _____ the schedule more flexible.",
+                gerunds: ["Allocating"],
+                gerundsCount: 1,
+                actionType: "one",
+                options: ["makes", "make"],
+                correct: "makes",
+                explanation: "One gerund as subject takes a singular verb."
+            },
+            {
+                sentence: "Mapping out the customer journey and identifying problems _____ careful analysis.",
+                gerunds: ["Mapping", "identifying"],
+                gerundsCount: 2,
+                actionType: "combined",
+                options: ["requires", "require"],
+                correct: "requires",
+                explanation: "These actions work together as one combined process of analysis, so we can use a singular verb."
+            },
+            {
+                sentence: "Receiving positive feedback and seeing happy faces _____ our team.",
+                gerunds: ["Receiving", "seeing"],
+                gerundsCount: 2,
+                actionType: "two",
+                options: ["motivates", "motivate"],
+                correct: "motivate",
+                explanation: "Two gerunds as separate actions take a plural verb."
+            },
+            {
+                sentence: "Improving communication _____ our main goal for next year.",
+                gerunds: ["Improving"],
+                gerundsCount: 1,
+                actionType: "one",
+                options: ["is", "are"],
+                correct: "is",
+                explanation: "One gerund as subject takes a singular verb."
+            }
+        ];
+
+        // State variables
+        let currentSection1 = 0;
+        let currentSection2 = 0;
+        let score1 = 0;
+        let score2 = 0;
+        let currentSection = null;
+        let section2StepAnswers = {};
+
+        // Shuffle array function
+        function shuffle(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function goHome() {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById('titlePage').classList.add('active');
+        }
+
+        function startSection1() {
+            currentSection = 1;
+            currentSection1 = 0;
+            score1 = 0;
+            document.getElementById('score1').textContent = '0';
+            document.getElementById('progress1').style.width = '0%';
+            document.getElementById('nextBtn1').style.display = 'none';
+            
+            document.getElementById('titlePage').classList.remove('active');
+            document.getElementById('section1').classList.add('active');
+            renderSection1();
+        }
+
+        function startSection2() {
+            currentSection = 2;
+            currentSection2 = 0;
+            score2 = 0;
+            section2StepAnswers = {};
+            document.getElementById('score2').textContent = '0';
+            document.getElementById('progress2').style.width = '0%';
+            document.getElementById('finishBtn').style.display = 'none';
+            resetDashboard();
+            
+            document.getElementById('titlePage').classList.remove('active');
+            document.getElementById('section2').classList.add('active');
+            renderSection2();
+        }
+
+        function resetDashboard() {
+            document.getElementById('dash-gerunds').classList.remove('filled');
+            document.getElementById('dash-gerunds').querySelector('.dashboard-value').textContent = '?';
+            document.getElementById('dash-action').classList.remove('filled');
+            document.getElementById('dash-action').querySelector('.dashboard-value').textContent = '?';
+            document.getElementById('dash-verb').classList.remove('filled');
+            document.getElementById('dash-verb').querySelector('.dashboard-value').textContent = '?';
+        }
+
+        function renderSection1() {
+            const container = document.getElementById('questions1');
+            container.innerHTML = '';
+            
+            if (currentSection1 < section1Questions.length) {
+                const q = section1Questions[currentSection1];
+                const shuffledOptions = shuffle(q.options);
+                
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-container';
+                questionDiv.innerHTML = `
+                    <div class="speaker">${q.speaker}:</div>
+                    <div class="question-text">"${q.text}"</div>
+                    <div class="options" id="options1-${currentSection1}">
+                        ${shuffledOptions.map(opt => `
+                            <label class="option">
+                                <input type="radio" name="q1-${currentSection1}" value="${opt}">
+                                ${opt}
+                            </label>
+                        `).join('')}
+                    </div>
+                    <button class="btn" onclick="checkSection1Answer()">Check Answer ✓</button>
+                    <div id="feedback1-${currentSection1}" class="feedback"></div>
+                `;
+                container.appendChild(questionDiv);
+                
+                document.getElementById('currentQ1').textContent = currentSection1 + 1;
+            }
+        }
+
+        function checkSection1Answer() {
+            const q = section1Questions[currentSection1];
+            const selected = document.querySelector(`input[name="q1-${currentSection1}"]:checked`);
+            
+            if (!selected) {
+                alert('Please select an answer! 😊');
+                return;
+            }
+            
+            const feedbackDiv = document.getElementById(`feedback1-${currentSection1}`);
+            const selectedValue = selected.value;
+            
+            if (selectedValue === q.correct) {
+                score1++;
+                feedbackDiv.className = 'feedback correct';
+                feedbackDiv.innerHTML = `<strong>🎉 ${q.explanation.correct}</strong>`;
+            } else {
+                feedbackDiv.className = 'feedback incorrect';
+                const wrongExplanation = q.explanation.incorrect[selectedValue];
+                feedbackDiv.innerHTML = `<strong>${wrongExplanation}</strong><br><br>💡 <strong>Correct answer:</strong> ${q.correct}<br>${q.explanation.correct}`;
+            }
+            
+            document.getElementById('score1').textContent = score1;
+            
+            // Disable options after answering
+            document.querySelectorAll(`input[name="q1-${currentSection1}"]`).forEach(input => {
+                input.disabled = true;
+            });
+            
+            // Show next button
+            setTimeout(() => {
+                currentSection1++;
+                const progress = (currentSection1 / section1Questions.length) * 100;
+                document.getElementById('progress1').style.width = progress + '%';
+                
+                if (currentSection1 < section1Questions.length) {
+                    renderSection1();
+                } else {
+                    document.getElementById('nextBtn1').style.display = 'inline-block';
+                }
+            }, 2000);
+        }
+
+        function goToSection2() {
+            startSection2();
+        }
+
+        function renderSection2() {
+            const container = document.getElementById('questions2');
+            container.innerHTML = '';
+            resetDashboard();
+            
+            if (currentSection2 < section2Questions.length) {
+                const q = section2Questions[currentSection2];
+                section2StepAnswers[currentSection2] = { step1: null, step2: null, step3: null };
+                
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-container';
+                questionDiv.innerHTML = `
+                    <div class="question-text">"${q.sentence}"</div>
+                    
+                    <!-- Step 1: Count gerunds -->
+                    <div class="scaffolding-step" id="step1-${currentSection2}">
+                        <div class="step-label">📊 Step 1: How many gerunds are in this sentence?</div>
+                        <div class="hint">💡 Hint: Gerunds are verbs ending in -ing that act as nouns (subjects, objects, etc.)</div>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="step1-${currentSection2}" value="1">
+                                1 gerund
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="step1-${currentSection2}" value="2">
+                                2 gerunds
+                            </label>
+                        </div>
+                        <button class="btn" onclick="checkStep1(${currentSection2})">Check Step 1 ✓</button>
+                        <div id="feedback-step1-${currentSection2}" class="feedback"></div>
+                    </div>
+                    
+                    <!-- Step 2: Action type (hidden initially) -->
+                    <div class="scaffolding-step" id="step2-${currentSection2}" style="display: none;">
+                        <div class="step-label">🎯 Step 2: What type of action?</div>
+                        <div class="hint">💡 Hint: Are they separate actions or one combined action?</div>
+                        <div class="options" id="step2-options-${currentSection2}"></div>
+                        <button class="btn" onclick="checkStep2(${currentSection2})" id="checkStep2Btn-${currentSection2}" style="display: none;">Check Step 2 ✓</button>
+                        <div id="feedback-step2-${currentSection2}" class="feedback"></div>
+                    </div>
+                    
+                    <!-- Step 3: Choose verb (hidden initially) -->
+                    <div class="scaffolding-step" id="step3-${currentSection2}" style="display: none;">
+                        <div class="step-label">✅ Step 3: Choose the correct verb form</div>
+                        <div class="options">
+                            ${q.options.map(opt => `
+                                <label class="option">
+                                    <input type="radio" name="step3-${currentSection2}" value="${opt}">
+                                    ${opt}
+                                </label>
+                            `).join('')}
+                        </div>
+                        <button class="btn" onclick="checkStep3(${currentSection2})">Check Step 3 ✓</button>
+                        <div id="feedback-step3-${currentSection2}" class="feedback"></div>
+                    </div>
+                `;
+                container.appendChild(questionDiv);
+                
+                document.getElementById('currentQ2').textContent = currentSection2 + 1;
+            }
+        }
+
+        function checkStep1(index) {
+            const q = section2Questions[index];
+            const selected = document.querySelector(`input[name="step1-${index}"]:checked`);
+            
+            if (!selected) {
+                alert('Please select an answer! 😊');
+                return;
+            }
+            
+            const feedbackDiv = document.getElementById(`feedback-step1-${index}`);
+            const selectedValue = parseInt(selected.value);
+            
+            if (selectedValue === q.gerundsCount) {
+                feedbackDiv.className = 'feedback correct';
+                feedbackDiv.innerHTML = `<strong>✅ Correct! There ${q.gerundsCount === 1 ? 'is' : 'are'} ${q.gerundsCount} gerund${q.gerundsCount > 1 ? 's' : ''}: ${q.gerunds.join(', ')}</strong>`;
+                section2StepAnswers[index].step1 = true;
+                
+                // Update dashboard
+                const dashGerundsEl = document.getElementById('dash-gerunds');
+                dashGerundsEl.classList.add('filled');
+                dashGerundsEl.querySelector('.dashboard-value').textContent = q.gerundsCount === 1 ? '1 gerund' : '2 gerunds';
+                
+                // Mark step as completed
+                document.getElementById(`step1-${index}`).classList.add('completed');
+                
+                // Disable inputs
+                document.querySelectorAll(`input[name="step1-${index}"]`).forEach(input => {
+                    input.disabled = true;
+                });
+                
+                // Show step 2
+                setTimeout(() => {
+                    const step2Options = document.getElementById(`step2-options-${index}`);
+                    if (q.gerundsCount === 1) {
+                        step2Options.innerHTML = `
+                            <div style="padding: 15px; background: #e8f5e9; border-radius: 10px;">
+                                ℹ️ Since there is only one gerund, we can skip to Step 3!
+                            </div>
+                        `;
+                        document.getElementById(`step2-${index}`).style.display = 'block';
+                        
+                        // Update dashboard for single gerund
+                        const dashActionEl = document.getElementById('dash-action');
+                        dashActionEl.classList.add('filled');
+                        dashActionEl.querySelector('.dashboard-value').textContent = 'Single action';
+                        
+                        setTimeout(() => {
+                            document.getElementById(`step2-${index}`).classList.add('completed');
+                            document.getElementById(`step3-${index}`).style.display = 'block';
+                        }, 1000);
+                    } else {
+                        step2Options.innerHTML = `
+                            <label class="option">
+                                <input type="radio" name="step2-${index}" value="combined">
+                                Combined action (they work together as one process)
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="step2-${index}" value="two">
+                                Two separate actions (they are different activities)
+                            </label>
+                        `;
+                        document.getElementById(`step2-${index}`).style.display = 'block';
+                        document.getElementById(`checkStep2Btn-${index}`).style.display = 'inline-block';
+                    }
+                }, 500);
+            } else {
+                feedbackDiv.className = 'feedback incorrect';
+                feedbackDiv.innerHTML = `<strong>❌ Not quite. Look again at the sentence. The gerunds are: ${q.gerunds.join(', ')}</strong>`;
+            }
+        }
+
+        function checkStep2(index) {
+            const q = section2Questions[index];
+            
+            if (q.gerundsCount === 1) {
+                return;
+            }
+            
+            const selected = document.querySelector(`input[name="step2-${index}"]:checked`);
+            
+            if (!selected) {
+                alert('Please select an answer! 😊');
+                return;
+            }
+            
+            const feedbackDiv = document.getElementById(`feedback-step2-${index}`);
+            const selectedValue = selected.value;
+            
+            if (selectedValue === q.actionType) {
+                feedbackDiv.className = 'feedback correct';
+                if (q.actionType === 'combined') {
+                    feedbackDiv.innerHTML = `<strong>✅ Correct! These gerunds work together as one combined action.</strong>`;
+                } else {
+                    feedbackDiv.innerHTML = `<strong>✅ Correct! These are two separate actions.</strong>`;
+                }
+                section2StepAnswers[index].step2 = true;
+                
+                // Update dashboard
+                const dashActionEl = document.getElementById('dash-action');
+                dashActionEl.classList.add('filled');
+                dashActionEl.querySelector('.dashboard-value').textContent = q.actionType === 'combined' ? 'Combined' : 'Separate';
+                
+                // Mark step as completed
+                document.getElementById(`step2-${index}`).classList.add('completed');
+                
+                // Disable inputs
+                document.querySelectorAll(`input[name="step2-${index}"]`).forEach(input => {
+                    input.disabled = true;
+                });
+                
+                // Show step 3
+                setTimeout(() => {
+                    document.getElementById(`step3-${index}`).style.display = 'block';
+                }, 500);
+            } else {
+                feedbackDiv.className = 'feedback incorrect';
+                if (q.actionType === 'combined') {
+                    feedbackDiv.innerHTML = `<strong>❌ Not quite. Think about whether these actions work together as one idea or are separate activities.</strong>`;
+                } else {
+                    feedbackDiv.innerHTML = `<strong>❌ Not quite. These are actually separate actions, not combined.</strong>`;
+                }
+            }
+        }
+
+        function checkStep3(index) {
+            const q = section2Questions[index];
+            const selected = document.querySelector(`input[name="step3-${index}"]:checked`);
+            
+            if (!selected) {
+                alert('Please select an answer! 😊');
+                return;
+            }
+            
+            const feedbackDiv = document.getElementById(`feedback-step3-${index}`);
+            const selectedValue = selected.value;
+            
+            if (selectedValue === q.correct) {
+                score2++;
+                feedbackDiv.className = 'feedback correct';
+                feedbackDiv.innerHTML = `<strong>🎉 Excellent! '${q.correct}' is correct.</strong><br><br>💡 ${q.explanation}`;
+                section2StepAnswers[index].step3 = true;
+                
+                // Update dashboard
+                const dashVerbEl = document.getElementById('dash-verb');
+                dashVerbEl.classList.add('filled');
+                dashVerbEl.querySelector('.dashboard-value').textContent = q.correct;
+                
+                // Mark step as completed
+                document.getElementById(`step3-${index}`).classList.add('completed');
+            } else {
+                feedbackDiv.className = 'feedback incorrect';
+                feedbackDiv.innerHTML = `<strong>❌ Not quite. The correct answer is '${q.correct}'.</strong><br><br>💡 ${q.explanation}`;
+            }
+            
+            document.getElementById('score2').textContent = score2;
+            
+            // Disable inputs
+            document.querySelectorAll(`input[name="step3-${index}"]`).forEach(input => {
+                input.disabled = true;
+            });
+            
+            // Show next button
+            setTimeout(() => {
+                currentSection2++;
+                const progress = (currentSection2 / section2Questions.length) * 100;
+                document.getElementById('progress2').style.width = progress + '%';
+                
+                if (currentSection2 < section2Questions.length) {
+                    renderSection2();
+                } else {
+                    document.getElementById('finishBtn').style.display = 'inline-block';
+                }
+            }, 2000);
+        }
+
+        function showFinalScore() {
+            document.getElementById('section2').classList.remove('active');
+            document.getElementById('finalPage').classList.add('active');
+            
+            const score = currentSection === 1 ? score1 : score2;
+            const total = currentSection === 1 ? section1Questions.length : section2Questions.length;
+            const percentage = (score / total) * 100;
+            
+            document.getElementById('sectionScore').textContent = `${score}/${total}`;
+            
+            const emojiEl = document.getElementById('finalEmoji');
+            const messageEl = document.getElementById('finalMessage');
+            
+            if (percentage >= 90) {
+                emojiEl.textContent = '🏆🌟';
+                messageEl.textContent = 'Outstanding work! You have mastered this section!';
+            } else if (percentage >= 75) {
+                emojiEl.textContent = '🎉⭐';
+                messageEl.textContent = 'Great job! You have a strong understanding!';
+            } else if (percentage >= 60) {
+                emojiEl.textContent = '👍✨';
+                messageEl.textContent = 'Good effort! Keep practising to improve further!';
+            } else {
+                emojiEl.textContent = '📚💪';
+                messageEl.textContent = 'Keep practising! Review the rules and try again!';
+            }
+        }
+
+        function tryAgain() {
+            if (currentSection === 1) {
+                startSection1();
+            } else {
+                startSection2();
+            }
+        }
+    </script>
+</body>
+</html>
